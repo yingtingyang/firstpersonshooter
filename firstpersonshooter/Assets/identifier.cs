@@ -4,7 +4,10 @@ using System.Collections;
 
 public class identifier : MonoBehaviour {
     Image crosshair;
-
+    public GUIText gameover;
+    public GUIText win;
+    
+    public AudioSource gunfire;
 	// Use this for initialization
 	void Start () {
         crosshair = GameObject.Find("crosshair").GetComponent<Image>();
@@ -16,13 +19,24 @@ public class identifier : MonoBehaviour {
         RaycastHit nfo;
         if (Physics.Raycast(transform.position,transform.forward,out nfo) == true)
         {
-            if(nfo.tranform.CompareTag("Enemy")== true)
+            if(nfo.transform.CompareTag("people")== true)
             {
                 crosshair.color = Color.yellow;
                 if (Input.GetMouseButtonDown(0))
                 {
-                    nfo.transform.GetComponent<addparticle>().countscore();
+                   GetComponent<AudioSource>().play();
+                   GetComponent<gameover>();
+                
                 }
+           }
+            if (nfo.transform.CompareTag("spy")==true)
+            {
+                crosshair.color = Color.yellow;
+                if (Input.GetMouseButtonDown(0)) {
+                    GetComponent<AudioSource>().play();
+                    Destroy(nfo.transform.gameObject);
+                    GetComponent<win>();
+                }     
             }
         }
 	
