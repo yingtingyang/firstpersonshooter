@@ -4,13 +4,14 @@ using System.Collections;
 
 public class identifier : MonoBehaviour {
     Image crosshair;
-    public GUIText gameover;
-    public GUIText win;
-    
+    public Text gameover;
+    public Text win;
     public AudioSource gunfire;
-	// Use this for initialization
+	
+    // Use this for initialization
 	void Start () {
         crosshair = GameObject.Find("crosshair").GetComponent<Image>();
+        gunfire = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -24,8 +25,9 @@ public class identifier : MonoBehaviour {
                 crosshair.color = Color.yellow;
                 if (Input.GetMouseButtonDown(0))
                 {
-                   GetComponent<AudioSource>().play();
-                   GetComponent<gameover>();
+                   gunfire.Play();
+                    gameover.enabled = true;
+                    Debug.Log("work");
                 
                 }
            }
@@ -33,9 +35,10 @@ public class identifier : MonoBehaviour {
             {
                 crosshair.color = Color.yellow;
                 if (Input.GetMouseButtonDown(0)) {
-                    GetComponent<AudioSource>().play();
+                    gunfire.Play();
                     Destroy(nfo.transform.gameObject);
-                    GetComponent<win>();
+                    win.enabled = true;
+                    Debug.Log("work");
                 }     
             }
         }
